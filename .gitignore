@@ -89,3 +89,6 @@ project/plugins/project/
 *.lock.db
 *.mv.db
 *.trace.db
+
+## Project files
+play-blog/
