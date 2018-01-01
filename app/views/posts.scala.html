@@ -1,0 +1,20 @@
+@*
+* This template takes a single argument, a list of Posts to display.
+*@
+@import util.PostsPager
+
+@(postsPager: PostsPager)
+
+<!-- Show List of Posts -->
+<div class="starter-template">
+    @for(postDTO <- postsPager.getList) {
+        <div class="panel">
+            <div class="panel-heading">
+                <h1><a href="@routes.PostController.getPost(postDTO.id)">@postDTO.title</a></h1>
+                <div> Created @postDTO.createDate by <a href="@routes.BlogController.usersBlog(postDTO.username)">@postDTO.username</a>
+                </div>
+            </div>
+            <h3 class="panel-body"> @postDTO.body</h3>
+        </div>
+    }
+</div>

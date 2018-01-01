@@ -1,0 +1,22 @@
+@*
+* This template takes a single argument, a list of Posts to display.
+*@
+@import dto.PostDTO
+@import helper.CSRF
+
+@(postForm: Form[PostDTO])
+
+@main {
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6 col-md-offset-3">
+
+                    <!-- Form - Blog Post -->
+                @helper.form(action = CSRF(routes.PostController.createPost()), 'class -> "form-horizontal") {
+                    @post_form(postForm)
+                }
+
+            </div>
+        </div>
+    </div>
+}

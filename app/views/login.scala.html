@@ -1,0 +1,77 @@
+@*
+* This template takes a single argument, a list of Posts to display.
+*@
+@import dto.LoginDTO
+@import helper.CSRF
+
+@(loginForm: Form[LoginDTO])
+
+@main {
+    <div class="container">
+        <div class="row" style="margin-top: 20px">
+            <div class="col-xs-12 col-sm-8 col-md-6 col-sm-offset-2 col-md-offset-3">
+
+                    <!-- Errors messages -->
+                <div class="col-sm-9">
+
+                @if(loginForm.hasGlobalErrors) {
+                    @for(error <- loginForm.globalErrors) {
+                        <div class="alert alert-danger">@error.format(messages())</div>
+                    }
+                }
+
+                </div>
+
+                    <!-- Form - Login -->
+                @helper.form(action = CSRF(routes.UserController.login()), 'class -> "form-horizontal") {
+
+                    <div class="form-group">
+                        <div class="col-sm-9">
+
+                                <!-- Errors - username -->
+                            @for(error <- loginForm("username").errors) {
+                                <p class="alert alert-danger">@error.format(messages())</p>
+                            }
+
+                                <!-- Form field - username -->
+                            <input type="text"
+                            placeholder="Username"
+                            class="form-control"
+                            name="username"
+                            value="@loginForm("username").getValue.orElse("")">
+
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="col-sm-9">
+
+                                <!-- Errors - password -->
+                            @for(error <- loginForm("password").errors) {
+                                <p class="alert alert-danger">@error.format(messages())</p>
+                            }
+
+                                <!-- Form field - password -->
+                            <input type="password"
+                            placeholder="Password"
+                            class="form-control"
+                            name="password"
+                            value="@loginForm("password").getValue.orElse("")">
+
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-sm-9">
+
+                            <input type="submit" class="btn  btn-primary btn-block" value="Login"/>
+
+                        </div>
+                    </div>
+                }
+
+            </div>
+        </div>
+
+    </div>
+}

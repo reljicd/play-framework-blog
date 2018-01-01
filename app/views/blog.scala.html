@@ -1,0 +1,32 @@
+@*
+* This template takes a single argument, a list of Posts to display.
+*@
+@import util.PostsPager
+
+@(postsPager: PostsPager)
+
+@main {
+    <!-- Show List of Posts -->
+    @posts(postsPager)
+
+    <!-- Pagination -->
+    <div class="pagination">
+    @if(postsPager.indexOutOfBounds) {
+        Page is out of bounds. Go back to <a href="@routes.BlogController.blog(1)">Home</a>.
+    } else {
+        @if(postsPager.hasPrev) {
+            <a href="@routes.BlogController.blog(1)">&laquo; first</a>
+            <a href="@routes.BlogController.blog(postsPager.getPageIndex - 1)">previous</a>
+        }
+
+        @if(postsPager.getTotalPageCount != 1) {
+            Page @postsPager.getPageIndex of @postsPager.getTotalPageCount.
+        }
+
+        @if(postsPager.hasNext) {
+            <a href="@routes.BlogController.blog(postsPager.getPageIndex + 1)">next</a>
+            <a href="@routes.BlogController.blog(postsPager.getTotalPageCount)">last &raquo;</a>
+        }
+    }
+    </div>
+}

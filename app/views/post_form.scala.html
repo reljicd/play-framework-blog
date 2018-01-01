@@ -1,0 +1,49 @@
+@*
+* This template takes a single argument, a list of Posts to display.
+*@
+@import dto.PostDTO
+
+@(postForm: Form[PostDTO])
+
+<div class="form-group">
+    <div class="col-sm-9">
+
+            <!-- Errors - title -->
+        @for(error <- postForm("title").errors) {
+            <p class="alert alert-danger">@error.format(messages())</p>
+        }
+
+            <!-- Form field - title -->
+        <input type="text"
+        placeholder="Title"
+        class="form-control"
+        name="title"
+        value="@postForm("title").getValue.orElse("")">
+
+        </div>
+</div>
+
+<div class="form-group">
+    <div class="col-sm-9">
+
+            <!-- Errors - body -->
+        @for(error <- postForm("body").errors) {
+            <p class="alert alert-danger">@error.format(messages())</p>
+        }
+
+            <!-- Form fields - body -->
+        <textarea placeholder="Body"
+        class="form-control"
+        name="body">@postForm("body").getValue.orElse("")</textarea>
+
+    </div>
+</div>
+
+<div class="form-group">
+    <div class="col-sm-9">
+
+            <!-- Submit button -->
+        <button type="submit" class="btn btn-primary btn-block">Save</button>
+
+    </div>
+</div>
