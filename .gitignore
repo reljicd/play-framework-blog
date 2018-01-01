@@ -84,3 +84,8 @@ project/plugins/project/
 ### Scala template
 *.class
 *.log
+
+# H2 databases
+*.lock.db
+*.mv.db
+*.trace.db
