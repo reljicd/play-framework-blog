@@ -3,11 +3,41 @@
 # ~~~~
 
 # An example controller showing a sample home page
-GET     /                           controllers.HomeController.index
-# An example controller showing how to use dependency injection
-GET     /count                      controllers.CountController.count
-# An example controller showing how to write asynchronous code
-GET     /message                    controllers.AsyncController.message
+GET         /                            controllers.HomeController.index
 
 # Map static resources from the /public folder to the /assets URL path
-GET     /assets/*file               controllers.Assets.versioned(path="/public", file: Asset)
+GET         /assets/*file                controllers.Assets.at(path="/public", file)
+
+# Home page of the application, showing blog posts from all users in reversed order of the date of publication
+GET         /blog                        controllers.BlogController.blog(page: Int ?= 1)
+# Blog page of user :username, showing blog posts from this users in reversed order of the date of publication
+GET         /blog/:username              controllers.BlogController.usersBlog(username, page: Int ?= 1)
+
+# Present "login" page
+GET         /login                       controllers.UserController.getLoginForm
+# Submit "login" form
+POST        /login                       controllers.UserController.login
+# Logout user
+GET         /logout                      controllers.UserController.logout
+# Present "registration" page
+GET         /register                    controllers.UserController.getRegistrationForm
+# Create new user
+POST        /register                    controllers.UserController.register
+
+# Present "create a post" page
+GET         /post/new                    controllers.PostController.getNewPostForm
+# Blog post page for id of :id
+GET         /post/:id                    controllers.PostController.getPost(id: Long)
+# Present "edit a post" page
+GET         /post/:id/edit               controllers.PostController.getEditPostForm(id: Long)
+# Create new post
+POST        /post                        controllers.PostController.createPost
+# Update post with id of :id
+POST        /post/:id/edit               controllers.PostController.editPost(id: Long)
+# Deletes post with id of :id
+GET         /post/:id/delete             controllers.PostController.deletePost(id: Long)
+
+# Present "leave a comment" page
+GET         /post/:postId/comment        controllers.CommentController.getCommentForm(postId: Long)
+# Create new comment
+POST        /post/:postId/comment        controllers.CommentController.createComment(postId: Long)
