@@ -25,7 +25,7 @@ public class AuthenticatedAction extends Action<Authenticated> {
     public CompletionStage<Result> call(final Http.Context ctx) {
         String username = ctx.session().get("username");
         if (username == null) {
-            Result login = badRequest(views.html.login.render(loginDTOForm.withGlobalError("Please login to see this page.")));
+            Result login = unauthorized(views.html.login.render(loginDTOForm.withGlobalError("Please login to see this page.")));
             return CompletableFuture.completedFuture(login);
         } else {
             return delegate.call(ctx);
