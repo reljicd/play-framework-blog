@@ -9,6 +9,9 @@ import services.UserService;
 
 import java.util.Optional;
 
+/**
+ * @author Dusan
+ */
 public class UserServiceImpl implements UserService {
 
     private final Logger.ALogger logger = Logger.of(this.getClass());

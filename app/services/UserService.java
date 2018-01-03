@@ -7,7 +7,9 @@ import models.User;
 import java.util.Optional;
 
 /**
- * Created by Dusan
+ * Service class for {@link models.User} domain objects
+ *
+ * @author Dusan
  */
 public interface UserService {
 

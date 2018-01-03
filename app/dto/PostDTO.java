@@ -5,6 +5,9 @@ import play.data.validation.Constraints.Required;
 
 import java.util.Date;
 
+/**
+ * @author Dusan
+ */
 public class PostDTO {
 
     public Long id;

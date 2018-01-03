@@ -16,6 +16,11 @@ import views.html.post;
 
 import javax.inject.Inject;
 
+/**
+ * Controller with actions related to Posts.
+ *
+ * @author Dusan
+ */
 public class PostController extends Controller {
 
     private final PostService postService;
@@ -29,6 +34,9 @@ public class PostController extends Controller {
         this.postForm = formFactory.form(PostDTO.class);
     }
 
+    /**
+     * GET Post page for post with id = postId.
+     */
     public Result getPost(Long postId) {
         return commentService.findCommentsForPost(postId)
                 .map(commentDTOs ->
@@ -38,11 +46,19 @@ public class PostController extends Controller {
                 .orElseGet(Results::notFound);
     }
 
+    /**
+     * GET new Post form.
+     * Only authenticated users can get this form.
+     */
     @Authenticated
     public Result getNewPostForm() {
         return ok(newPost.render(postForm));
     }
 
+    /**
+     * GET edit Post form.
+     * Only authenticated users and users who are the owners of post can get this form.
+     */
     @Authenticated
     @PostExistsAndUserIsOwner
     public Result getEditPostForm(Long postId) {
@@ -51,6 +67,10 @@ public class PostController extends Controller {
                 .orElseGet(Results::notFound);
     }
 
+    /**
+     * POST new Post form.
+     * Only authenticated users can post this form.
+     */
     @Authenticated
     public Result createPost() {
         Form<PostDTO> postForm = this.postForm.bindFromRequest();
@@ -64,6 +84,10 @@ public class PostController extends Controller {
         }
     }
 
+    /**
+     * POST edit Post form.
+     * Only authenticated users and users who are the owners of post can post this form.
+     */
     @Authenticated
     @PostExistsAndUserIsOwner
     public Result editPost(Long postId) {
@@ -79,6 +103,10 @@ public class PostController extends Controller {
         }
     }
 
+    /**
+     * DELETE Post.
+     * Only authenticated users and users who are the owners of post can delete post.
+     */
     @Authenticated
     @PostExistsAndUserIsOwner
     public Result deletePost(Long postId) {

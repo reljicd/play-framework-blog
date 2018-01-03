@@ -14,6 +14,11 @@ import views.html.register;
 
 import javax.inject.Inject;
 
+/**
+ * Controller with actions related to Users, including login and register actions.
+ *
+ * @author Dusan
+ */
 public class UserController extends Controller {
 
     private final UserService userService;
@@ -27,10 +32,16 @@ public class UserController extends Controller {
         this.registrationForm = formFactory.form(UserDTO.class);
     }
 
+    /**
+     * GET login form.
+     */
     public Result getLoginForm() {
         return ok(login.render(loginForm));
     }
 
+    /**
+     * POST login form.
+     */
     public Result login() {
         Form<LoginDTO> loginDTOForm = loginForm.bindFromRequest();
         if (loginDTOForm.hasErrors()) {
@@ -46,17 +57,29 @@ public class UserController extends Controller {
         }
     }
 
+    /**
+     * Logout action.
+     * Only authenticated users can logout.
+     */
     @Authenticated
     public Result logout() {
         session().clear();
         return redirect(routes.BlogController.blog(1));
     }
 
+    /**
+     * GET registration Form.
+     * Only unauthenticated users can see this page.
+     */
     @NotAuthenticated
     public Result getRegistrationForm() {
         return ok(register.render(registrationForm));
     }
 
+    /**
+     * POST registration Form.
+     * Only unauthenticated users can use this.
+     */
     @NotAuthenticated
     public Result register() {
         Form<UserDTO> registrationForm = this.registrationForm.bindFromRequest();

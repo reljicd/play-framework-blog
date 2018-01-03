@@ -7,6 +7,9 @@ import io.ebean.annotation.NotNull;
 import javax.persistence.*;
 import java.util.List;
 
+/**
+ * @author Dusan
+ */
 @Entity
 public class User extends Model {
 

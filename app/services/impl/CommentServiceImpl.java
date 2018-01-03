@@ -14,6 +14,9 @@ import java.util.Optional;
 
 import static java.util.stream.Collectors.toList;
 
+/**
+ * @author Dusan
+ */
 public class CommentServiceImpl implements CommentService {
 
     private final UserService userService;

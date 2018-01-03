@@ -4,6 +4,9 @@ import play.data.validation.Constraints.Email;
 import play.data.validation.Constraints.MinLength;
 import play.data.validation.Constraints.Required;
 
+/**
+ * @author Dusan
+ */
 public class UserDTO {
 
     @MinLength(value = 5, message = "*Your username must have at least 5 characters")

@@ -7,6 +7,14 @@ import models.Post;
 import java.util.List;
 import java.util.stream.Collectors;
 
+/**
+ * Util class for Posts pagination.
+ * Keeps reference to {@link PagedList} of Posts,
+ * delegates some calls to it,
+ * and has util methods that facilitate implementation of pagination on templates.
+ *
+ * @author Dusan
+ */
 public class PostsPager {
 
     private final PagedList<Post> postPagedList;

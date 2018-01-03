@@ -10,6 +10,9 @@ import util.PostsPager;
 import javax.inject.Inject;
 import java.util.Optional;
 
+/**
+ * @author Dusan
+ */
 public class PostServiceImpl implements PostService {
 
     private final UserService userService;

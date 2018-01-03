@@ -11,6 +11,11 @@ import views.html.comment;
 
 import javax.inject.Inject;
 
+/**
+ * Controller with actions related to Comments.
+ *
+ * @author Dusan
+ */
 public class CommentController extends Controller {
 
     private final CommentService commentService;
@@ -22,6 +27,10 @@ public class CommentController extends Controller {
         this.commentForm = formFactory.form(CommentDTO.class);
     }
 
+    /**
+     * GET new Comment form.
+     * Only authenticated users can get this form.
+     */
     @Authenticated
     public Result getCommentForm(Long postId) {
         CommentDTO commentDTO = new CommentDTO();
@@ -29,6 +38,10 @@ public class CommentController extends Controller {
         return ok(comment.render(commentForm.fill(commentDTO), postId));
     }
 
+    /**
+     * POST new Comment.
+     * Only authenticated users can post this form.
+     */
     @Authenticated
     public Result createComment(Long postId) {
         Form<CommentDTO> commentForm = this.commentForm.bindFromRequest();

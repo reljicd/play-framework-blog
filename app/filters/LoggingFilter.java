@@ -10,6 +10,11 @@ import javax.inject.Inject;
 import java.util.concurrent.CompletionStage;
 import java.util.function.Function;
 
+/**
+ * Logging Filter. Intercepts all HTTP requests, and prints useful request info to Logger.
+ *
+ * @author Dusan
+ */
 public class LoggingFilter extends Filter {
 
     @Inject
@@ -31,7 +36,7 @@ public class LoggingFilter extends Filter {
                         requestHeader.method(), requestHeader.uri(), requestHeader.remoteAddress(), requestTime, result.status());
             }
 
-            return result.withHeader("Request-Time", "" + requestTime);
+            return result;
         });
 
     }

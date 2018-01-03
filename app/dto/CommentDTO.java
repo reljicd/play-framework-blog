@@ -4,6 +4,9 @@ import play.data.validation.Constraints.Required;
 
 import java.util.Date;
 
+/**
+ * @author Dusan
+ */
 public class CommentDTO {
 
     @Required(message = "*Please write something")

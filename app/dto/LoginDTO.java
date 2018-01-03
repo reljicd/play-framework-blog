@@ -2,6 +2,9 @@ package dto;
 
 import play.data.validation.Constraints;
 
+/**
+ * @author Dusan
+ */
 public class LoginDTO {
 
     @Constraints.Required(message = "*Please provide your username")

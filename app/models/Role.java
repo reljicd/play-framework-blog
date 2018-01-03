@@ -6,6 +6,9 @@ import io.ebean.Model;
 import javax.persistence.*;
 import java.util.List;
 
+/**
+ * @author Dusan
+ */
 @Entity
 public class Role extends Model {
 

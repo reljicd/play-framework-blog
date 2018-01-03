@@ -8,6 +8,9 @@ import io.ebean.annotation.NotNull;
 import javax.persistence.*;
 import java.util.Date;
 
+/**
+ * @author Dusan
+ */
 @Entity
 public class Comment extends Model {
 
