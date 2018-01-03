@@ -15,6 +15,13 @@ import java.util.Optional;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.CompletionStage;
 
+/**
+ * Util Action that checks if Post exists and if logged in User is the owner of Post.
+ * <p>
+ * Returns notFound if Post doesn't exists or unauthorized if User is not the owner of Post.
+ *
+ * @author Dusan
+ */
 public class PostExistsAndUserIsOwnerAction extends Action<PostExistsAndUserIsOwner> {
 
     private final PostService postService;
@@ -28,13 +35,18 @@ public class PostExistsAndUserIsOwnerAction extends Action<PostExistsAndUserIsOw
 
     public CompletionStage<Result> call(final Http.Context ctx) {
         String username = ctx.session().get("username");
-        Optional<PostDTO> optionalPost = postService.getPost(6L);
+        Long postId = Long.parseLong(ctx.request().getQueryString("id"));
+        Optional<PostDTO> optionalPost = postService.getPost(postId);
         if (!optionalPost.isPresent()) {
+            // Post doesn't exists
             return CompletableFuture.completedFuture(notFound());
         } else if (!optionalPost.get().username.equals(username)) {
-            Result login = badRequest(views.html.login.render(loginDTOForm.withGlobalError("Please login with proper credentials to modify this post")));
+            // User is not the owner of Post
+            Result login = unauthorized(views.html.login.render(
+                    loginDTOForm.withGlobalError("Please login with proper credentials to modify this post")));
             return CompletableFuture.completedFuture(login);
         } else {
+            // Post exists and User is the owner of Post
             return delegate.call(ctx);
         }
     }
