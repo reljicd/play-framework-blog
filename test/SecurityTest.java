@@ -77,7 +77,7 @@ public class SecurityTest extends WithApplication {
     }
 
     @Test
-    public void testAuthenticatedUserRequestingToEdiPostByOtherUser() {
+    public void testAuthenticatedUserRequestingToEditPostByOtherUser() {
         UserDTO userDTO = new UserDTO("TEST", "TEST", "TEST@test.com", "firstName", "lastName");
         userService.saveUser(userDTO);
         PostDTO postDTO = postService.savePost(new PostDTO(null, "TEST", "TEST", null, userDTO.username));
@@ -88,7 +88,7 @@ public class SecurityTest extends WithApplication {
                 .uri(controllers.routes.PostController.getEditPostForm(postDTO.id).url());
 
         Result result = route(app, request);
-        assertThat(result.status()).isEqualTo(BAD_REQUEST);
+        assertThat(result.status()).isEqualTo(UNAUTHORIZED);
     }
 }
 

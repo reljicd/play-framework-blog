@@ -32,7 +32,6 @@ public class PostsPagerTest extends WithApplication {
         userService.saveUser(userDTO);
 
         // Populate DB with some dummy posts
-
         IntStream.rangeClosed(1, NUMBER_OF_DUMMY_POSTS)
                 .forEach(i -> postService.savePost(new PostDTO(null, "Title" + i, "body", null, USERNAME)));
     }
