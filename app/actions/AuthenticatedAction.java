@@ -13,6 +13,11 @@ import javax.inject.Inject;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.CompletionStage;
 
+/**
+ * Action that checks if User is authenticated
+ *
+ * @author Dusan
+ */
 public class AuthenticatedAction extends Action<Authenticated> {
 
     private final Form<LoginDTO> loginDTOForm;
@@ -25,9 +30,11 @@ public class AuthenticatedAction extends Action<Authenticated> {
     public CompletionStage<Result> call(final Http.Context ctx) {
         String username = ctx.session().get("username");
         if (username == null) {
+            // User is not authenticated, show him Login form
             Result login = unauthorized(views.html.login.render(loginDTOForm.withGlobalError("Please login to see this page.")));
             return CompletableFuture.completedFuture(login);
         } else {
+            // User is authenticated, call delegate
             return delegate.call(ctx);
         }
     }

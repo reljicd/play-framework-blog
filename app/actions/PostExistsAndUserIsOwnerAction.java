@@ -38,15 +38,15 @@ public class PostExistsAndUserIsOwnerAction extends Action<PostExistsAndUserIsOw
         Long postId = Long.parseLong(ctx.request().getQueryString("id"));
         Optional<PostDTO> optionalPost = postService.getPost(postId);
         if (!optionalPost.isPresent()) {
-            // Post doesn't exists
+            // Post doesn't exists, return notFound
             return CompletableFuture.completedFuture(notFound());
         } else if (!optionalPost.get().username.equals(username)) {
-            // User is not the owner of Post
+            // User is not the owner of Post, show him Login form
             Result login = unauthorized(views.html.login.render(
                     loginDTOForm.withGlobalError("Please login with proper credentials to modify this post")));
             return CompletableFuture.completedFuture(login);
         } else {
-            // Post exists and User is the owner of Post
+            // Post exists and User is the owner of Post, call delegate
             return delegate.call(ctx);
         }
     }
