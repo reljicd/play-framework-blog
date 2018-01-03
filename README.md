@@ -64,6 +64,15 @@ Run the Docker container:
 $ docker run --rm -i -p 9000:9000 reljicd/play-blog
 ```
 
+#### Helper Script
+
+It is possible to run all of the above with helper script:
+
+```bash
+$ chmod +x scripts/run_docker.sh
+$ scripts/run_docker.sh
+```
+
 ## Post Installation
 
 The application should be up and running within a few seconds.
